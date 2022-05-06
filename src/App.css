@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.header {
+  background-color: rgb(183, 178, 178);
+}
+
+.datagridStyle {
+  margin: 30px auto; 
+  width: 75%;
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgb(183, 178, 178);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px grey;
+}
+
+.MuiDataGrid-row:nth-child(2n) {
+  opacity: 100;
+  background-color: rgba(203, 222, 222, 0.7)
+}
+
+.MuiDataGrid-row:nth-child(2n-1) {
+  background-color: #ffffff;
+}
+
+.main {
+  height: 100%;
+  padding: 19px;
+  background: linear-gradient(to right, #acb6e5, #86fde8);
+}
+
+.btn {
+  margin : 20px;
+}
+
+.MuiDataGrid-toolbarContainer{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+  margin: auto;
+  border-radius: 5px;
+  justify-content: space-around;
+  height: 60px;
+}
+
+@media only screen and (max-width:768px){
+  .datagridStyle {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
