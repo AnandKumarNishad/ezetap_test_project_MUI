@@ -1,21 +1,9 @@
-import { Button, Pagination, Toolbar, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import '../App.css'
-
-// const useStyles = makeStyles((theme) =>
-//   createStyles({
-//     root: {
-//       "& .MuiDataGrid-renderingZone": {
-//         "& .MuiDataGrid-row": {
-//           "&:nth-child(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" }
-//         }
-//       }
-//     }
-//   })
-// );
 
 const Admin = () => {
     const [ user, setUser ] = useState();

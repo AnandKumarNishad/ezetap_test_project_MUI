@@ -6,11 +6,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/userSlice';
+import { LoadingButton } from '@mui/lab';
 
 const Login = () => {
     let data;
     let navigate = useNavigate()
     const dispatch = useDispatch();
+    const [ disabledBtn, setDisabledBtn ] = useState(true)
     const [ user, setUser ] = useState({
         email : "", password : ""
     });
@@ -21,44 +23,46 @@ const Login = () => {
     const [ emailText, setEmailText ] = useState("");
     const [ passwordText, setPasswordText ] = useState("");
 
+    const [loading, setLoading] = useState(false);
+
+
     let name, value;
     const handleInputs =(e) => {
         name = e.target.name;
         value = e.target.value;
         setUser({...user, [name]:value});
+        
+        if(user.email !== '' && user.password !== '') {
+            setDisabledBtn(false);
+        }
         setEmailErrors(false);
         setPasswordErrors(false);
         setEmailText("");
         setPasswordText("");
+        setLoading(false);
     }; 
 
     const validation = (e) => {
-        if (user.email === "") {
-            setEmailErrors(true);
-            setEmailText("Required");
-        } else if ((/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/).test(user.email)) {
+        if ((/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/).test(user.email)) {
             setEmailErrors(false);
         } else {
             setEmailErrors(true)
             setEmailText("Enter a valid email")
+            setLoading(false);
         }
 
-        if (user.password === "") {
-            setPasswordErrors(true);
-            setPasswordText("Required")
-        } else if (user.password.length < 5) {
+        if (user.password.length < 5) {
             setPasswordErrors(true);
             setPasswordText("password should be 5 character or more ")
+            setLoading(false);
         }
     }
 
     const goToAdminConsole = () => {
-        window.alert("Login Successful... redirecting to admin console...");
         navigate('/admin');
     }
 
     const goToUserConsole = () => {
-        window.alert("Login Successful... redirecting to Home...");
         navigate('/user');
     }
 
@@ -82,7 +86,7 @@ const Login = () => {
                 emailCount = 1;
                 if( password === user.password ) {
                     setPasswordErrors(false);
-                    setPasswordText("")
+                    setPasswordText("");
                     passwordCount = 1;
                     dispatch(login({...data[index]}));
                     if( role === "admin") {
@@ -95,13 +99,15 @@ const Login = () => {
                 }
                 else {
                     setPasswordErrors(true);
-                    setPasswordText("Wrong password")
+                    setPasswordText("Wrong password");
+                    setLoading(false);
                 }
                 break;
             }
             else {
                 setEmailErrors(true);
-                setEmailText("Invalid email")
+                setEmailText("Invalid email");
+                setLoading(false);
             }
         }
 
@@ -117,14 +123,11 @@ const Login = () => {
         validation();
         if(user.email !== "" && user.password !== "")
         {
+            setLoading(true);
             getData();
         }
         
     };
-
-    // const getData = (e) => {
-    //     console.log(user.email, user.password)
-    // }
 
     const gridStyle = {
         margin: 0,
@@ -163,7 +166,7 @@ const Login = () => {
                     <Avatar style = { avatarStyle }><LockOutlinedIcon style={{ width : '2em', height : '2em' }}/></Avatar>
                     <h1>Log In</h1>
                 </Grid>
-                <form noValidate onSubmit = {handleSubmit}>
+                <form noValidate onSubmit = { handleSubmit } >
                     <Grid style={{ display : 'flex', alignItems : 'flex-end', margin : '10px 50px' }}>
                         <AccountCircle sx = {{ mr: 1, my: 1 }} style = {{ height: '40px', width: '40px' }}/>
                         <TextField type = 'email' label = 'Email' name = 'email' placeholder = 'Enter e-mail' value = {user.email} onChange = {handleInputs} fullwidth = "true" required autoComplete='off' error = {emailErrors} helperText = { emailText } ></TextField>
@@ -173,8 +176,7 @@ const Login = () => {
                         <PasswordOutlined sx = {{ mr: 1, my: 1.8 }} style = {{ height: '40px', width: '40px' }}/>
                         <TextField type = 'password' label = 'Password' name = 'password' placeholder = 'Enter password' value = {user.password} onChange = {handleInputs} fullwidth = "true" required error = {passwordErrors} helperText = { passwordText } ></TextField>
                     </Grid>
-
-                    <Button variant='contained' type = 'submit' color = 'secondary' style = { buttonStyle } >Log In</Button>
+                    <LoadingButton variant = 'contained' type = 'submit' color = 'secondary' style = { buttonStyle } disabled = {disabledBtn} loading={loading}  > LOG IN </LoadingButton>
                 </form>
                 <Grid style={{ display : 'flex', flexDirection : 'column', justifyContent : 'center', margin : '20px'}}>
                     <Typography>
@@ -187,26 +189,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// onClick = {(e) => {e.preventDefault(); getData(); }}
- //     if( email === user.email){
-        //         emailCount = 1;
-        //         console.log("correct")
-        //         setEmailErrors(false);
-        //         setPasswordErrors(false);
-        //         // return emailCount
-        //     } else {
-        //         setEmailErrors(true);
-        //         setEmailText("Email not present")
-        //     }
-
-        //     if ( password === user.password ) {
-        //         passwordCount = 1;
-        //         console.log("correct")
-        //         setEmailErrors(false);
-        //         setPasswordErrors(false);
-        //         return passwordCount
-        //     } else {
-        //         setPasswordErrors(true);
-        //         setPasswordText("Wrong Password");
-        //     }
