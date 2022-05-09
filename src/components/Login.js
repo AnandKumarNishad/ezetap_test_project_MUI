@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Avatar, Button, Grid, Link, Paper, TextField, Typography } from '@mui/material';
-import { AccountCircle, PasswordOutlined } from '@mui/icons-material';
 import axios from 'axios';
+import sideImage from '../images/img-01.png';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/userSlice';
+import '../css/main.css'
+import '../css/util.css'
 import { LoadingButton } from '@mui/lab';
+import { TextField} from '@mui/material';
+
 
 const Login = () => {
+
     let data;
     let navigate = useNavigate()
     const dispatch = useDispatch();
@@ -129,62 +132,65 @@ const Login = () => {
         
     };
 
-    const gridStyle = {
-        margin: 0,
-        padding: 0,
-        display : 'flex',
-        justifyContent : 'center',
-        alignItems : 'center',
-        height: '100vh',
-        background: 'linear-gradient(to right, #acb6e5, #86fde8)'
-    }
-
-    const paperStyle = {
-        padding : 20,
-        height : '460px',
-        width : '400px',
-        borderRadius : '10px',
-        backgroundColor : "#FCF6F6",
-    }
-
-    const avatarStyle = {
-        backgroundColor : 'blue',
-        width : '4em',
-        height: '4em',
-    }
-
     const buttonStyle = {
         marginTop : '15px',
         borderRadius : '10px',
         padding: '10px 25px',
     }
 
+    const inputStyle = {
+        marginLeft: '10%',
+        width: '90%',
+    }
+
     return (
-        <Grid style = { gridStyle }>
-            <Paper elevation = { 10 } style = { paperStyle }>
-                <Grid align = 'center' style = { {marginTop : '40px' }}>
-                    <Avatar style = { avatarStyle }><LockOutlinedIcon style={{ width : '2em', height : '2em' }}/></Avatar>
-                    <h1>Log In</h1>
-                </Grid>
-                <form noValidate onSubmit = { handleSubmit } >
-                    <Grid style={{ display : 'flex', alignItems : 'flex-end', margin : '10px 50px' }}>
-                        <AccountCircle sx = {{ mr: 1, my: 1 }} style = {{ height: '40px', width: '40px' }}/>
-                        <TextField type = 'email' label = 'Email' name = 'email' placeholder = 'Enter e-mail' value = {user.email} onChange = {handleInputs} fullwidth = "true" required autoComplete='off' error = {emailErrors} helperText = { emailText } ></TextField>
-                    </Grid>
-                    
-                    <Grid style={{ display : 'flex', alignItems : 'flex-end', margin : '10px 50px' }}>
-                        <PasswordOutlined sx = {{ mr: 1, my: 1.8 }} style = {{ height: '40px', width: '40px' }}/>
-                        <TextField type = 'password' label = 'Password' name = 'password' placeholder = 'Enter password' value = {user.password} onChange = {handleInputs} fullwidth = "true" required error = {passwordErrors} helperText = { passwordText } ></TextField>
-                    </Grid>
-                    <LoadingButton variant = 'contained' type = 'submit' color = 'secondary' style = { buttonStyle } disabled = {disabledBtn} loading={loading}  > LOG IN </LoadingButton>
-                </form>
-                <Grid style={{ display : 'flex', flexDirection : 'column', justifyContent : 'center', margin : '20px'}}>
-                    <Typography>
-                        <Link href = '#' fullwidth = "true" >Forgot Password</Link>
-                    </Typography>
-                </Grid>
-            </Paper>
-        </Grid>
+        <div className="limiter">
+            <div className="container-login100">
+                <div className="wrap-login100">
+                    <div className="login100-pic js-tilt" data-tilt>
+                        <img src = { sideImage } alt = "side"></img>
+                    </div>
+
+                    <form className="login100-form validate-form" onSubmit = { handleSubmit } noValidate>
+                        <span className="login100-form-title">
+                            Login
+                        </span>
+
+                        <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                            <TextField type = 'email' label = 'Email' name = 'email' placeholder = 'Enter e-mail' value = {user.email} onChange = {handleInputs} required autoComplete='off' error = {emailErrors} helperText = { emailText } style = { inputStyle } ></TextField>
+                            <span className="focus-input100"></span>
+                            <span className="symbol-input100">
+                                <i className="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                        <div className="wrap-input100 validate-input" data-validate = "Password is required">
+                            <TextField type = 'password' label = 'Password' name = 'password' placeholder = 'Enter password' value = {user.password} onChange = {handleInputs} fullwidth = "true" required error = {passwordErrors} helperText = { passwordText } style = { inputStyle } ></TextField>
+                            <span className="focus-input100"></span>
+                            <span className="symbol-input100">
+                                <i className="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        
+                        <div className="container-login100-form-btn">
+                            <LoadingButton className = "login100-form-btn" variant = 'contained' type = 'submit' style = { buttonStyle } loading={loading} disabled = {disabledBtn} color = 'success' > LOG IN </LoadingButton>
+                        </div>
+
+                        <div className="text-center p-t-12">
+                            <span className="txt1">
+                                Forgot: 
+                            </span>
+                            <a className="txt2" href="/">
+                                Username / Password?
+                            </a>
+                        </div>
+
+                        <div className="text-center p-t-136">
+                        </div>
+                    </form>
+                </div>
+            </div>
+	    </div>
     );
 };
 
