@@ -38,14 +38,18 @@
 }
 
 .header {
-  background-color: rgb(183, 178, 178);
+  background-color: rgb(169, 169, 169);
 }
 
 .datagridStyle {
-  margin: 30px auto; 
-  width: 75%;
-  height: 65vh;
+  margin: 30px auto 0; 
+  margin-left: 285px;
+  margin-right: 0;
+  top: 0;
+  width: 85%;
+  height: 92vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   border: 1px solid rgb(183, 178, 178);
   border-radius: 5px;
@@ -63,8 +67,7 @@
 
 .main {
   height: 100%;
-  padding: 19px;
-  background: linear-gradient(to right, #acb6e5, #86fde8);
+  padding: 0 19px;
 }
 
 .btn {
@@ -75,10 +78,25 @@
   display: flex;
   flex-wrap: wrap;
   background-color: #fff;
-  margin: auto;
+  margin: 0 90px;
+  /* margin: auto; */
   border-radius: 5px;
-  justify-content: space-around;
+  /* justify-content: space-evenly; */
   height: 60px;
+}
+
+.MuiButton-root
+{
+  width: 240px;
+  /* background-color: rgb(183, 29, 29); */
+}
+
+
+/* .MuiTouchRipple-root  */
+
+.createButton{
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media only screen and (max-width:768px){

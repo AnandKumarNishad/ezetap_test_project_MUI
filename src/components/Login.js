@@ -4,11 +4,14 @@ import sideImage from '../images/img-01.png';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/userSlice';
-import '../css/main.css'
-import '../css/util.css'
+import '../css/main.css';
+import '../css/util.css';
+import '../App.css';
 import { LoadingButton } from '@mui/lab';
-import { TextField} from '@mui/material';
-
+import { IconButton, InputAdornment, OutlinedInput } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Login = () => {
 
@@ -26,8 +29,8 @@ const Login = () => {
     const [ emailText, setEmailText ] = useState("");
     const [ passwordText, setPasswordText ] = useState("");
 
-    const [loading, setLoading] = useState(false);
-
+    const [ loading, setLoading] = useState(false);
+    const [ visiblePassword, setVisiblePassword ] = useState(false);
 
     let name, value;
     const handleInputs =(e) => {
@@ -132,15 +135,22 @@ const Login = () => {
         
     };
 
+    const handleClickShowPassword = () => {
+          setVisiblePassword(!visiblePassword) 
+    };
+    
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
     const buttonStyle = {
         marginTop : '15px',
-        borderRadius : '10px',
+        borderRadius : '30px',
         padding: '10px 25px',
     }
 
     const inputStyle = {
-        marginLeft: '10%',
-        width: '90%',
+        width: '100%',
     }
 
     return (
@@ -157,19 +167,36 @@ const Login = () => {
                         </span>
 
                         <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <TextField type = 'email' label = 'Email' name = 'email' placeholder = 'Enter e-mail' value = {user.email} onChange = {handleInputs} required autoComplete='off' error = {emailErrors} helperText = { emailText } style = { inputStyle } ></TextField>
-                            <span className="focus-input100"></span>
-                            <span className="symbol-input100">
-                                <i className="fa fa-envelope" aria-hidden="true"></i>
-                            </span>
+                            <OutlinedInput type = 'email' name = 'email' placeholder = 'Enter e-mail' value = {user.email} onChange = {handleInputs} autoComplete='off' error = {emailErrors} helpertext = { emailText } style = { inputStyle } 
+                                startAdornment = {
+                                    <InputAdornment position='start'>
+                                        <EmailIcon />
+                                    </InputAdornment>
+                                }
+                            ></OutlinedInput>
                         </div>
 
                         <div className="wrap-input100 validate-input" data-validate = "Password is required">
-                            <TextField type = 'password' label = 'Password' name = 'password' placeholder = 'Enter password' value = {user.password} onChange = {handleInputs} fullwidth = "true" required error = {passwordErrors} helperText = { passwordText } style = { inputStyle } ></TextField>
-                            <span className="focus-input100"></span>
-                            <span className="symbol-input100">
-                                <i className="fa fa-lock" aria-hidden="true"></i>
-                            </span>
+                            <OutlinedInput type = { visiblePassword ? 'text' : 'password' } name = 'password' placeholder = 'Enter password' value = {user.password} onChange = {handleInputs} fullwidth = "true" error = {passwordErrors} helpertext = { passwordText } style = { inputStyle } 
+                                startAdornment = {
+                                    <InputAdornment position='start'>
+                                        <LockRoundedIcon />
+                                    </InputAdornment>
+                                }
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {visiblePassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                    </InputAdornment>
+                                }
+                            >
+                            </OutlinedInput>
                         </div>
                         
                         <div className="container-login100-form-btn">

@@ -1,4 +1,3 @@
-import { Button, Typography } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -20,40 +19,24 @@ const Admin = () => {
     };
     
     const column = [
-        { field: 'id', headerName: "ID", width: '120', headerClassName: 'header' },
-        { field: 'name', headerName: "Name", width: '200', headerClassName: 'header' },
-        { field: 'mobilenumber', headerName: "Mobile", width: '200', headerClassName: 'header' },
-        { field: 'email', headerName: "Email", width: '260', headerClassName: 'header' },
-        { field: 'orgcode', headerName: "Org. Code", width: '174', headerClassName: 'header' },
-        { field: 'username', headerName: "Username", width: '200', headerClassName: 'header' },
-        { field: 'role', headerName: "Role", width: '200', headerClassName: 'header' },
+        { field: 'id', headerName: "ID", width: '154', headerClassName: 'header' },
+        { field: 'name', headerName: "Name", width: '245', headerClassName: 'header' },
+        { field: 'mobilenumber', headerName: "Mobile", width: '245', headerClassName: 'header' },
+        { field: 'email', headerName: "Email", width: '245', headerClassName: 'header' },
+        { field: 'orgcode', headerName: "Org. Code", width: '200', headerClassName: 'header' },
+        { field: 'username', headerName: "Username", width: '220', headerClassName: 'header' },
+        { field: 'role', headerName: "Role", width: '225', headerClassName: 'header' },
     ]; 
-
-    const goToCreateUser = () => {
-        console.log("hi");
-    }
-
-    const goToCreateAgreement = () => {
-        console.log("hello");
-    }
 
     useEffect(() => {
         getUsers()
+        // eslint-disable-next-line
     }, []);
-
-    const buttonStyle = {
-        marginTop : '15px',
-        borderRadius : '10px',
-        padding: '10px 25px',
-        margin: '0 10px',
-    }
 
     return (
         <div className='main'>
             <Navbar />
             <>
-                <Typography variant='h3'> welcome Admin</Typography>
-                <Typography variant='h5'> Users Details </Typography>
                 {
                 user
                 ?
@@ -72,8 +55,6 @@ const Admin = () => {
                 null
                 }
             </>
-            <Button className='btn' variant='contained' type = 'submit' color = 'secondary' style = { buttonStyle } onClick = {goToCreateUser} >Add User</Button>
-            <Button className='btn' variant='contained' type = 'submit' color = 'secondary' style = { buttonStyle } onClick = {goToCreateAgreement} >Add Agreement</Button>           
         </div>
     );
 };
